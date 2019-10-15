@@ -1,0 +1,78 @@
+﻿* {
+    font-family: "Microsoft YaHei UI";
+    font-size: 14px;
+}
+
+body {
+    background-color: #f1f1f1;
+}
+
+#main {
+    margin-top: 12px;
+}
+
+.pad-left {
+    padding-left: 6px;
+}
+
+.pad-right {
+    padding-right: 6px;
+}
+
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+    content: "瀏覽文件";
+}
+
+.jumbotron {
+    box-shadow: 1px 1px 8px #ccc;
+    background-color: white;
+    margin-bottom: 0px;
+    margin-top: 12px;
+}
+
+.card {
+    box-shadow: 1px 1px 8px #ccc;
+}
+
+.table td, .table th, .table-sm td, .table-sm th {
+    padding: 6px;
+    vertical-align: middle;
+}
+
+#person_list th, #person_list td {
+    text-align: center;
+}
+
+.alert {
+    margin-bottom: 0px;
+}
+
+#chart-data {
+    margin-top: 12px;
+}
+
+#chart > .col-md-6 {
+    margin-bottom: 12px;
+}
+/*針對整體做動畫*/
+*{ 
+  -webkit-transition:all .2s ease-in-out;
+	   -moz-transition:all .2s ease-in-out;
+	     -o-transition:all .2s ease-in-out;
+	        transition:all .2s ease-in-out;
+}
+/*
+  但是全體做動畫有個缺點，當在LOGO裡面做圖的時候，文字隱藏的時候，
+  網站剛讀取會有動畫效果!超像bug的所以如果有在LOGO設圖片，要針對LOGO的地方動畫速度歸 0
+*/
+/*針對 .navbar 作一些我想要的修正*/
+.navbar-scroll.navbar {
+  padding: 10px 0;
+  border-radius: 0px;
+  margin: 0;
+}
+/*也是針對想要的畫面做修正*/
+.navbar-scroll.navbar-fixed-top{
+  padding:0px 0;
+}
+

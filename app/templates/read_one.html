@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+    <div style=" padding-bottom: 20px;">
+        <a class="btn btn-info" href="{{ url_for('crud.create_subgame',id=data['gam'].id) }}">新增比賽項目</a>
+        <a class="btn btn-info" href="{{ url_for('crud.add_message',id=data['gam'].id) }}">新增公告</a>
+        <a class="btn btn-info" href="{{ url_for('crud.add_menu',id=data['gam'].id) }}">新增連結</a>
+        <a class="btn btn-info" href="{{ url_for('crud.read_game',id=data['gam'].id) }}">前端頁面</a>
+    </div>
+    <table class="table table-bordered" id="person_list">
+        <thead>
+            <tr>
+                <th>連結</th>
+                <th>管理選項</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if data['men'] %}
+            {% for v in data['men'] %}
+            <tr>
+                <td><a href="">{{ v.item }}</a></td>
+                <td>
+                    <a onclick="if(confirm('確認刪除公告嗎？')){location.href='/delete/menu/?id={{ v.id }}&game_id={{ v.game_id }}'}" href="javascript:void(0)" class="text-danger">[删除]</a>
+                </td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+    <section class="mbr-cards mbr-section" id="features3-j" style="background-color: rgb(9, 97, 72, 70%);">
+        <h1 align="center"><strong>
+                <font>{{ data['gam'].name }}</font>
+            </strong></h1>
+        <div class="mbr-cards-row row">
+            {% if data['sub'] %}
+            {% for v in data['sub'] %}
+            <div class="mbr-cards-col col-xs-12 col-lg-4" style="padding-top: 20px; padding-bottom: 20px;">
+                <div class="container">
+                    <div class="card cart-block">
+                        <div class="card-img"><a href="{{ v.url }}"><img style="height: 150px;" src="/static/uploads/{{ v.img }}" class="card-img-top"></a></div>
+                        <div class="card-block" style="text-align:center">
+                            <h5 class="card-subtitle"></h5>
+                            <p class="card-text"></p>
+                            <div class="card-btn"><a href="{{ v.url }}" class="btn btn-black" style="background-color:#FEDFE1;">
+                                    <font size="3">{{ v.name }}</font>
+                                </a>
+                            </div>
+                            <a onclick="if(confirm('確認刪除比賽嗎？'))
+                                            {location.href='/delete/subgame/?id={{ v.id }}&game_id={{ v.game_id }}'}" href="javascript:void(0)" class="text-danger">[删除]</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </section>
+    <section class="mbr-section mbr-section__container article" id="header3-b" style="background-color: rgb(255, 255, 255); padding-top: 20px; padding-bottom: 20px;">
+        <div class="container">
+            <table class="table table-bordered" id="person_list">
+                <thead>
+                    <tr>
+                        <th>公告標題</th>
+                        <th>公告時間</th>
+                        <th>管理選項</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if data['mes'] %}
+                    {% for v in data['mes'] %}
+                    <tr>
+                        <td>{{ v.title }}</td>
+                        <td>{{ v.createdAt }}</td>
+                        <td>
+                            <a onclick="if(confirm('確認刪除公告嗎？')){location.href='/delete/message/?id={{ v.id }}&game_id={{ v.game_id }}'}" href="javascript:void(0)" class="text-danger">[删除]</a>&nbsp;
+                            <a href="{{ url_for('crud.update_message',id=v.id,game_id=v.game_id) }}" class="text-info">[编辑]</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <iframe src="{{ url_for('crud.read_game',id=data['gam'].id) }}" width="100%" height="700"></iframe>
+    
+</div>
+{% endblock %}

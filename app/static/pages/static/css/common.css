@@ -1,0 +1,49 @@
+* {
+    font-family: "Microsoft YaHei UI";
+    font-size: 14px;
+}
+
+body {
+    background-color: #f1f1f1;
+}
+
+#main {
+    margin-top: 12px;
+}
+
+.pad-left {
+    padding-left: 6px;
+}
+
+.pad-right {
+    padding-right: 6px;
+}
+
+.custom-file-input:lang(en) ~ .custom-file-label::after {
+    content: "浏览文件";
+}
+
+.jumbotron {
+    box-shadow: 1px 1px 8px #ccc;
+    background-color: white;
+    margin-bottom: 0px;
+    margin-top: 12px;
+}
+
+.card {
+    box-shadow: 1px 1px 8px #ccc;
+}
+
+.table td, .table th, .table-sm td, .table-sm th {
+    padding: 6px;
+    vertical-align: middle;
+}
+
+#person_list th, #person_list td {
+    text-align: center;
+}
+
+.alert {
+    margin-bottom: 0px;
+}
+

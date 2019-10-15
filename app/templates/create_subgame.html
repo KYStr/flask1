@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<form id="form-data">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="input_name">比賽項目名稱</label>
+                <input type="text" name="name" class="form-control" id="input_name">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="id" value="{{ data['gam'].id }}">
+                <p class="text-danger" id="error_name"></p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="input_name">比賽項目連結</label>
+                <input type="text" name="url" class="form-control" id="input_url">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <p class="text-danger" id="error_url"></p>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="input_face">比賽項目圖片</label>
+                <input type="file" class="form-control-file" id="file_face">
+                <input type="hidden" name="img" id="input_face">
+                <hr>
+                <div id="image_face">
+                    <img data-src="holder.js/200x200">
+                </div>
+                <hr>
+                <a class="btn btn-info" href="javascript:void(0)" id="upload_face">上傳圖片</a>
+                <p class="text-danger" id="error_face"></p>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <a id="btn-sub" class="btn btn-success" href="javascript:void(0)">保存信息</a>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block foot %}
+<script src="{{ url_for('static',filename='js/upload.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        upload("face", 200, 200, "/upload/");
+        $("#btn-sub").click(function () {
+            var data = $("#form-data").serialize();
+            $.ajax({
+                url: "/create/subgame/",
+                type: "POST",
+                dataType: "json",
+                data: data,
+                success: function (res) {
+                    if (res.code == 1) {
+                        location.href = "/read/one/?id={{ data['gam'].id }}";
+                    } else {
+                        var fields = ["id", "name", "url", "img"];
+                        for (var k in fields) {
+                            if (typeof res[fields[k]] === "undefined") {
+                                $("#error_" + fields[k]).empty();
+                            } else {
+                                $("#error_" + fields[k]).empty();
+                                $("#error_" + fields[k]).append(res[fields[k]]);
+                            }
+                        }
+                    }
+                }
+            })
+        });
+    });
+</script>
+{% endblock %}
