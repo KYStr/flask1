@@ -1,0 +1,67 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<form id="form-data">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="input_name">標題</label>
+                <input type="text" value="{{ data['mes'].title }}" name="name" class="form-control" id="input_name">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="id" value="{{ data['mes'].id }}">
+                <input type="hidden" name="game_id" value="{{ data['mes'].game_id }}">
+                <p class="text-danger" id="error_name"></p>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="input_info">內容</label>
+                <textarea class="form-control"
+                          id="input_info"
+                          name="info"
+                          rows="6"
+                          >{{ data['mes'].content }}</textarea>
+                <p class="text-danger" id="error_info"></p>
+            </div>
+        </div>
+        
+        <div class="col-md-12">
+            <div class="form-group">
+                <a id="btn-sub" class="btn btn-success" href="javascript:void(0)">保存信息</a>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block foot %}
+<script src="{{ url_for('static',filename='js/upload.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        $("#btn-sub").click(function () {
+            var data = $("#form-data").serialize();
+            $.ajax({
+                url: "/update/message/",
+                type: "POST",
+                dataType: "json",
+                data: data,
+                success: function (res) {
+                    if (res.code == 1) {
+                        location.href = "/read/one/?id={{ data['mes'].game_id }}";
+                    } else {
+                        var fields = ["game_id", "name", "info"];
+                        for (var k in fields) {
+                            if (typeof res[fields[k]] === "undefined") {
+                                $("#error_" + fields[k]).empty();
+                            } else {
+                                $("#error_" + fields[k]).empty();
+                                $("#error_" + fields[k]).append(res[fields[k]]);
+                            }
+                        }
+                    }
+                }
+            })
+        });
+    });
+</script>
+{% endblock %}

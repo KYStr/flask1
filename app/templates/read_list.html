@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<script src="https://cdn.bootcss.com/echarts/4.1.0.rc2/echarts.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<table class="table table-bordered" id="person_list">
+    <thead>
+        <tr>
+            <th>編號</th>
+            <th>大賽名稱</th>
+            <th>郵箱</th>
+            <th>管理選項</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if data['arr']['data'] %}
+        {% for v in data['arr']['data'] %}
+        <tr>
+            <td>{{ v.id }}</td>
+            <td>{{ v.name }}</td>
+            <td>{{ v.email }}</td>
+            <td>
+                <a href="{{ url_for('crud.read_one',id=v.id) }}" class="text-success">[詳情]</a>&nbsp;
+                <a href="{{ url_for('crud.read_game',id=v.id) }}" class="text-info">[前端]</a>&nbsp;
+                <a onclick="if(confirm('確認刪除{{ v.name }}嗎？')){location.href='/delete/?id={{ v.id }}'}" 
+                   href="javascript:void(0)" 
+                   class="text-danger">[删除]</a>&nbsp;
+            </td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </tbody>
+</table>
+<nav>
+    <ul class="pagination pagination-sm">
+        <li class="page-item{% if data['arr']['page'] == 1 %} disabled{% endif %}"><a class="page-link" href="{{ url_for('crud.read_list',page=1) }}">首頁</a></li>
+        <li class="page-item{% if data['arr']['page'] == 1 %} disabled{% endif %}"><a class="page-link" href="{{ url_for('crud.read_list',page=data['arr']['prev']) }}">上一頁</a></li>
+        <li class="page-item"><a class="page-link" href="#">{{ data['arr']['page'] }}/{{ data['arr']['pagenum'] }}</a></li>
+        <li class="page-item{% if data['arr']['page'] == data['arr']['pagenum'] %} disabled{% endif %}"><a class="page-link" href="{{ url_for('crud.read_list',page=data['arr']['next']) }}">下一頁</a></li>
+        <li class="page-item{% if data['arr']['page'] == data['arr']['pagenum'] %} disabled{% endif %}"><a class="page-link" href="{{ url_for('crud.read_list',page=data['arr']['pagenum']) }}">尾頁</a></li>
+    </ul>
+</nav>
+{% endblock %}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{{ url_for('static',filename='dist/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/common.css') }}">
+    <title>{{ data['title'] }}</title>
+    {% block head %}{% endblock %}
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">綜合賽會整合系統</a>
+        <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('crud.read_list') }}">賽事管理</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('crud.create_game') }}">新增大賽</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="row" id="main">
+        <div class="col-md-8 pad-right">
+            <div class="card">
+                <div class="card-header">{{ data['title'] }}</div>
+                <div class="card-body">
+                    {% block content %}{% endblock %}<!--數據塊-->
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 pad-left">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="text-center text-success">使用Flask開發</h6>
+                    <table class="table table-sm">
+                        <tr>
+                            <td class="text-primary text-right">開發語言：</td>
+                            <td>python</td>
+                        </tr>
+                        <tr>
+                            <td class="text-primary text-right">前端ui框架：</td>
+                            <td>boostrap</td>
+                        </tr>
+                        <tr>
+                            <td class="text-primary text-right">javascript庫：</td>
+                            <td>jquery</td>
+                        </tr>
+                        <tr>
+                            <td class="text-primary text-right">存儲數據庫：</td>
+                            <td>mysql</td>
+                        </tr>
+                        <tr>
+                            <td class="text-primary text-right">web框架：</td>
+                            <td>flask</td>
+                        </tr>
+                        <tr>
+                            <td class="text-primary text-right">表單驗證工具：</td>
+                            <td>wtforms</td>
+                        </tr>
+                        <tr>
+                            <td class="text-primary text-right">模板引擎：</td>
+                            <td>jinja2</td>
+                        </tr>
+                        <tr>
+                            <td class="text-primary text-right">wsgi工具包：</td>
+                            <td>werkzeug</td>
+                        </tr>
+                        <tr>
+                            <td class="text-primary text-right">數據庫驅動：</td>
+                            <td>connector/python</td>
+                        </tr>
+                        <tr>
+                            <td class="text-primary text-right">數據庫orm：</td>
+                            <td>sqlalchemy</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% block foot_content %}
+    {% endblock %}
+
+</div>
+
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="{{ url_for('static',filename='dist/js/bootstrap.min.js') }}"></script>
+<script src="https://cdn.bootcss.com/holder/2.9.4/holder.min.js"></script>
+{% block foot %}{% endblock %}
+</body>
+</html>
